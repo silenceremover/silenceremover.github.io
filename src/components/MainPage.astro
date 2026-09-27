@@ -1,0 +1,427 @@
+---
+import type { Locale } from '../i18n/translations';
+import { translations } from '../i18n/translations';
+import Layout from '../layouts/Layout.astro';
+import { SilenceRemover } from './SilenceRemover';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = translations[locale] || translations.en;
+---
+
+<Layout locale={locale}>
+  <!-- Hero Section -->
+  <section class="relative pt-10 sm:pt-16 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <!-- Subtle Pastel Ambient Glow Background -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-[#D2DAFF]/40 to-transparent dark:from-[#B1B2FF]/10 pointer-events-none -z-10 blur-3xl"></div>
+
+    <div class="max-w-4xl mx-auto text-center space-y-6">
+      <!-- Trust Badge -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/80 dark:bg-slate-800 text-slate-800 dark:text-[#EEF1FF] border border-[#D2DAFF] dark:border-slate-700 shadow-2xs backdrop-blur-xs">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+        <span class="w-2 h-2 rounded-full bg-emerald-500 -ml-4"></span>
+        <span>{t.hero.badge}</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.15]">
+        {t.hero.title}{' '}
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#7c7feb] via-[#8c82eb] to-[#AAC4FF] dark:from-[#B1B2FF] dark:to-[#AAC4FF]">
+          {t.hero.titleHighlight}
+        </span>
+      </h1>
+
+      <!-- Geo-detected Country Badge below the headline -->
+      <div class="flex justify-center -mt-2">
+        <div 
+          id="user-country-badge" 
+          class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white/80 dark:bg-slate-800/80 border border-[#D2DAFF] dark:border-slate-700/80 text-slate-700 dark:text-slate-300 shadow-2xs transition-all duration-300 backdrop-blur-xs opacity-100"
+        >
+          <span id="country-flag-icon" class="text-base sm:text-lg leading-none">🌐</span>
+          <span id="country-message" class="text-xs">
+            Free & 100% private in-browser trimming
+          </span>
+        </div>
+      </div>
+
+      <!-- Subtitle -->
+      <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
+        {t.hero.subtitle}
+      </p>
+    </div>
+
+    <!-- Core React Island: Audio Processing Component -->
+    <div class="mt-10 sm:mt-12">
+      <SilenceRemover client:load t={t.tool} />
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section id="how-it-works" class="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white/60 dark:bg-slate-900/60 border-y border-[#D2DAFF]/60 dark:border-slate-800/80 transition-colors">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16 space-y-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-[#8487e8] dark:text-[#B1B2FF]">Workflow</span>
+        <h2 class="text-2xl sm:text-4xl font-black text-slate-900 dark:text-[#EEF1FF] tracking-tight">
+          {t.howItWorks.heading}
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400">
+          {t.howItWorks.subheading}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+        {t.howItWorks.steps.map((st) => (
+          <div class="relative bg-white dark:bg-slate-800/80 border border-[#D2DAFF] dark:border-slate-700/80 rounded-3xl p-6 sm:p-8 shadow-xs hover:shadow-md transition-all hover:-translate-y-1">
+            <div class="w-12 h-12 rounded-2xl bg-[#EEF1FF] dark:bg-slate-700 text-[#8487e8] dark:text-[#B1B2FF] font-black text-xl flex items-center justify-center mb-6">
+              {st.step}
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-[#EEF1FF] mb-2">
+              {st.title}
+            </h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              {st.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Grid -->
+  <section id="features" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16 space-y-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-[#8487e8] dark:text-[#B1B2FF]">Technology</span>
+        <h2 class="text-2xl sm:text-4xl font-black text-slate-900 dark:text-[#EEF1FF] tracking-tight">
+          {t.features.heading}
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400">
+          {t.features.subheading}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {t.features.items.map((feat, idx) => (
+          <div class="bg-white/80 dark:bg-slate-900 border border-[#D2DAFF] dark:border-slate-800 rounded-3xl p-6 sm:p-7 shadow-xs hover:border-[#B1B2FF] dark:hover:border-[#B1B2FF] transition-colors">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#B1B2FF]/40 to-[#AAC4FF]/40 dark:from-[#B1B2FF]/20 dark:to-[#AAC4FF]/20 text-[#8487e8] dark:text-[#B1B2FF] flex items-center justify-center mb-4">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                {idx === 0 && <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />}
+                {idx === 1 && <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />}
+                {idx === 2 && <path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />}
+                {idx === 3 && <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />}
+                {idx === 4 && <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />}
+                {idx === 5 && <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />}
+              </svg>
+            </div>
+            <h3 class="font-bold text-base text-slate-900 dark:text-[#EEF1FF] mb-2">
+              {feat.title}
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+              {feat.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Privacy Guarantee Callout -->
+  <section id="privacy" class="py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto bg-gradient-to-tr from-[#D2DAFF]/60 via-[#AAC4FF]/40 to-[#B1B2FF]/40 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 border border-[#B1B2FF] dark:border-slate-700 rounded-3xl p-8 sm:p-10 shadow-sm">
+      <div class="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
+        <div class="w-16 h-16 rounded-2xl bg-white dark:bg-slate-800 flex items-center justify-center shrink-0 shadow-sm text-emerald-500">
+          <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+        </div>
+        <div class="space-y-2">
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-[#EEF1FF]">
+            {t.privacy.heading}
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+            {t.privacy.description}
+          </p>
+          <ul class="text-xs text-slate-700 dark:text-slate-300 space-y-1 pt-1">
+            <li class="flex items-center gap-2 justify-center sm:justify-start">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              <span>{t.privacy.bullet1}</span>
+            </li>
+            <li class="flex items-center gap-2 justify-center sm:justify-start">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              <span>{t.privacy.bullet2}</span>
+            </li>
+            <li class="flex items-center gap-2 justify-center sm:justify-start">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              <span>{t.privacy.bullet3}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section (Accessible Accordion with Native HTML Details) -->
+  <section id="faq" class="py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-10 space-y-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-[#8487e8] dark:text-[#B1B2FF]">Questions</span>
+        <h2 class="text-2xl sm:text-4xl font-black text-slate-900 dark:text-[#EEF1FF] tracking-tight">
+          {t.faq.heading}
+        </h2>
+        <p class="text-sm text-slate-600 dark:text-slate-400">
+          {t.faq.subheading}
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        {t.faq.items.map((item, idx) => (
+          <details class="group bg-white/80 dark:bg-slate-900 border border-[#D2DAFF] dark:border-slate-800 rounded-2xl p-5 shadow-2xs open:border-[#B1B2FF] dark:open:border-[#B1B2FF] transition-all">
+            <summary class="font-bold text-sm sm:text-base text-slate-900 dark:text-[#EEF1FF] cursor-pointer list-none flex items-center justify-between gap-4">
+              <span>{item.question}</span>
+              <span class="text-slate-400 group-open:rotate-180 transition-transform">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </span>
+            </summary>
+            <p class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-3">
+              {item.answer}
+            </p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Support the Developer Banner -->
+  <section class="py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto bg-gradient-to-r from-[#B1B2FF] to-[#AAC4FF] rounded-3xl p-8 text-center text-slate-900 shadow-md space-y-4">
+      <div class="w-12 h-12 bg-white/90 rounded-2xl flex items-center justify-center mx-auto text-slate-900 shadow-xs">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/>
+        </svg>
+      </div>
+      <h3 class="text-xl sm:text-2xl font-bold">Love SilenceRemover?</h3>
+      <p class="text-xs sm:text-sm max-w-lg mx-auto opacity-90">
+        SilenceRemover is an open tool maintained independently. Your support helps keep this tool 100% free, fast, and ad-free!
+      </p>
+      <div class="pt-2">
+        <a
+          href="https://buymeacoffee.com/kisharadilz"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl font-bold text-sm bg-slate-900 text-white hover:bg-slate-800 shadow-md transition-all transform hover:scale-105 active:scale-95"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/>
+          </svg>
+          <span>Support on Buy Me a Coffee</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    // Client-side country detection with zero server dependency
+    function initCountryBadge() {
+      const badgeEl = document.getElementById('user-country-badge');
+      const flagEl = document.getElementById('country-flag-icon');
+      const msgEl = document.getElementById('country-message');
+      if (!badgeEl || !flagEl || !msgEl) return;
+
+      function codeToFlag(code) {
+        if (!code || code.length !== 2) return '🌐';
+        try {
+          return String.fromCodePoint(...code.toUpperCase().split('').map(function(c) {
+            return 127397 + c.charCodeAt(0);
+          }));
+        } catch (e) {
+          return '🌐';
+        }
+      }
+
+      function getCountryName(code) {
+        try {
+          const lang = document.documentElement.lang || navigator.language || 'en';
+          const displayNames = new Intl.DisplayNames([lang, 'en'], { type: 'region' });
+          return displayNames.of(code) || code;
+        } catch (e) {
+          return code;
+        }
+      }
+
+      function updateBadge(code) {
+        if (!code) return;
+        const lowerCode = code.toLowerCase();
+        const countryName = getCountryName(code);
+        const fallbackEmoji = codeToFlag(code);
+
+        // Create flag image DOM element cleanly (no HTML escaping bugs)
+        const img = document.createElement('img');
+        img.src = 'https://flagcdn.com/w40/' + lowerCode + '.png';
+        img.srcset = 'https://flagcdn.com/w80/' + lowerCode + '.png 2x';
+        img.width = 22;
+        img.height = 16;
+        img.alt = countryName;
+        img.className = 'rounded-xs shadow-2xs inline-block object-cover align-middle -mt-0.5 border border-slate-300 dark:border-slate-700';
+        
+        let hasErrored = false;
+        img.onerror = function() {
+          if (!hasErrored) {
+            hasErrored = true;
+            img.src = 'https://flagcdn.com/' + lowerCode + '.svg';
+          } else {
+            flagEl.textContent = fallbackEmoji;
+          }
+        };
+
+        flagEl.innerHTML = '';
+        flagEl.appendChild(img);
+
+        const lang = document.documentElement.lang || 'en';
+        let text = 'Free for creators in <strong class="font-semibold text-slate-900 dark:text-white">' + countryName + '</strong>';
+        if (lang === 'es') text = 'Gratis para creadores en <strong class="font-semibold text-slate-900 dark:text-white">' + countryName + '</strong>';
+        else if (lang === 'pt') text = 'Gratuito para criadores no <strong class="font-semibold text-slate-900 dark:text-white">' + countryName + '</strong>';
+        else if (lang === 'de') text = 'Kostenlos für Creator in <strong class="font-semibold text-slate-900 dark:text-white">' + countryName + '</strong>';
+        else if (lang === 'fr') text = 'Gratuit pour les créateurs en <strong class="font-semibold text-slate-900 dark:text-white">' + countryName + '</strong>';
+        else if (lang === 'ja') text = '<strong class="font-semibold text-slate-900 dark:text-white">' + countryName + '</strong>のクリエイター向けに完全無料';
+
+        msgEl.innerHTML = text;
+        badgeEl.classList.remove('opacity-0');
+        badgeEl.classList.add('opacity-100');
+      }
+
+      function guessFromTimezone() {
+        try {
+          const tz = (Intl.DateTimeFormat().resolvedOptions().timeZone || '').toLowerCase();
+          
+          // Direct checks for Sri Lanka
+          if (tz.includes('colombo') || tz.includes('sri lanka')) return 'LK';
+
+          // Direct check for China
+          if (tz.includes('shanghai') || tz.includes('chongqing') || tz.includes('harbin') || tz.includes('urumqi') || tz.includes('beijing')) return 'CN';
+
+          // Offset -330 is exclusively Sri Lanka (LK) and India (IN)
+          if (new Date().getTimezoneOffset() === -330) {
+            if (tz.includes('kolkata') || tz.includes('calcutta') || (navigator.language && navigator.language.includes('IN'))) {
+              return 'IN';
+            }
+            return 'LK';
+          }
+
+          const map = {
+            'asia/shanghai': 'CN',
+            'asia/chongqing': 'CN',
+            'asia/harbin': 'CN',
+            'asia/urumqi': 'CN',
+            'asia/hong_kong': 'HK',
+            'asia/taipei': 'TW',
+            'asia/macau': 'MO',
+            'asia/colombo': 'LK',
+            'asia/kolkata': 'IN',
+            'asia/calcutta': 'IN',
+            'america/new_york': 'US',
+            'america/chicago': 'US',
+            'america/denver': 'US',
+            'america/los_angeles': 'US',
+            'america/phoenix': 'US',
+            'america/toronto': 'CA',
+            'america/vancouver': 'CA',
+            'europe/london': 'GB',
+            'europe/berlin': 'DE',
+            'europe/paris': 'FR',
+            'europe/madrid': 'ES',
+            'europe/rome': 'IT',
+            'europe/amsterdam': 'NL',
+            'europe/brussels': 'BE',
+            'europe/zurich': 'CH',
+            'europe/vienna': 'AT',
+            'europe/warsaw': 'PL',
+            'europe/stockholm': 'SE',
+            'europe/oslo': 'NO',
+            'europe/helsinki': 'FI',
+            'asia/tokyo': 'JP',
+            'america/sao_paulo': 'BR',
+            'america/mexico_city': 'MX',
+            'australia/sydney': 'AU',
+            'australia/melbourne': 'AU',
+            'asia/singapore': 'SG',
+            'asia/seoul': 'KR',
+            'asia/dubai': 'AE',
+            'asia/bangkok': 'TH',
+            'asia/jakarta': 'ID',
+            'asia/manila': 'PH',
+            'asia/karachi': 'PK',
+            'asia/dhaka': 'BD',
+            'africa/johannesburg': 'ZA',
+            'africa/cairo': 'EG',
+            'africa/lagos': 'NG',
+            'america/buenos_aires': 'AR',
+            'america/santiago': 'CL',
+            'america/bogota': 'CO',
+            'america/lima': 'PE',
+            'pacific/auckland': 'NZ'
+          };
+          if (map[tz]) return map[tz];
+
+          const parts = (navigator.language || '').split('-');
+          if (parts.length > 1 && parts[1].length === 2) {
+            return parts[1].toUpperCase();
+          }
+        } catch (e) {}
+        return null;
+      }
+
+      // Check session storage
+      try {
+        const cached = sessionStorage.getItem('sr_country');
+        if (cached) {
+          updateBadge(cached);
+          return;
+        }
+      } catch (e) {}
+
+      // Fast instant fallback (0ms)
+      const guessed = guessFromTimezone();
+      if (guessed) {
+        updateBadge(guessed);
+      }
+
+      // Lightweight API confirmation
+      const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+      const timeoutId = setTimeout(function() {
+        if (controller) controller.abort();
+      }, 2500);
+
+      fetch('https://api.country.is', controller ? { signal: controller.signal } : {})
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          clearTimeout(timeoutId);
+          if (data && data.country) {
+            try { sessionStorage.setItem('sr_country', data.country); } catch (e) {}
+            updateBadge(data.country);
+          }
+        })
+        .catch(function() {
+          clearTimeout(timeoutId);
+          if (guessed) {
+            try { sessionStorage.setItem('sr_country', guessed); } catch (e) {}
+          } else {
+            badgeEl.classList.remove('opacity-0');
+            badgeEl.classList.add('opacity-100');
+          }
+        });
+    }
+
+    // Ensure detector runs across all lifecycles
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initCountryBadge);
+    } else {
+      initCountryBadge();
+    }
+    document.addEventListener('astro:page-load', initCountryBadge);
+  </script>
+</Layout>

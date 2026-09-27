@@ -1,0 +1,96 @@
+---
+import type { Locale, TranslationSchema } from '../i18n/translations';
+import { LOCALES } from '../i18n/translations';
+
+interface Props {
+  locale: Locale;
+  t: TranslationSchema;
+}
+
+const { locale, t } = Astro.props;
+
+const getLocaleUrl = (code: Locale) => {
+  return code === 'en' ? '/' : `/${code}/`;
+};
+---
+
+<footer class="bg-white/80 dark:bg-slate-900 border-t border-[#D2DAFF] dark:border-slate-800 pt-14 pb-12 transition-colors">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+      <!-- Brand & Mission -->
+      <div class="md:col-span-2 space-y-4">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#B1B2FF] to-[#AAC4FF] flex items-center justify-center text-slate-900">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M8 8v8M4 11v2M16 7v10M20 11v2" />
+            </svg>
+          </div>
+          <span class="font-bold text-lg text-slate-900 dark:text-[#EEF1FF]">
+            Silence<span class="text-[#8487e8] dark:text-[#B1B2FF]">Remover</span>
+          </span>
+        </div>
+        <p class="text-sm text-slate-600 dark:text-slate-400 max-w-md">
+          {t.footer.tagline}
+        </p>
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-[#EEF1FF] dark:bg-slate-800 text-slate-700 dark:text-[#EEF1FF] border border-[#D2DAFF] dark:border-slate-700">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>{t.footer.privacyNote}</span>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200 mb-3">
+          Navigation
+        </h3>
+        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+          <li><a href="/#features" class="hover:text-slate-900 dark:hover:text-[#EEF1FF] transition-colors">{t.nav.features}</a></li>
+          <li><a href="/#how-it-works" class="hover:text-slate-900 dark:hover:text-[#EEF1FF] transition-colors">{t.nav.howItWorks}</a></li>
+          <li><a href="/how-to-remove-silence-from-audio-free/" class="hover:text-slate-900 dark:hover:text-[#EEF1FF] transition-colors font-medium text-[#8487e8] dark:text-[#B1B2FF]">How to Remove Silence Free</a></li>
+          <li><a href="/#privacy" class="hover:text-slate-900 dark:hover:text-[#EEF1FF] transition-colors">Privacy Guarantee</a></li>
+          <li><a href="/#faq" class="hover:text-slate-900 dark:hover:text-[#EEF1FF] transition-colors">{t.nav.faq}</a></li>
+        </ul>
+      </div>
+
+      <!-- Support & Locales -->
+      <div class="space-y-4">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200 mb-3">
+          Support Creator
+        </h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400">
+          SilenceRemover is 100% free with zero ads. If it saved you editing time, consider buying a coffee!
+        </p>
+        <a
+          href="https://buymeacoffee.com/kisharadilz"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-[#B1B2FF] hover:bg-[#AAC4FF] text-slate-900 shadow-sm transition-all hover:shadow hover:-translate-y-0.5"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/>
+          </svg>
+          <span>{t.footer.supportButton}</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Supported Languages Footer Grid -->
+    <div class="pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
+      <div class="flex flex-wrap items-center gap-3">
+        <span class="font-semibold text-slate-700 dark:text-slate-300">Languages:</span>
+        {LOCALES.map((l) => (
+          <a
+            href={getLocaleUrl(l.code)}
+            class={`hover:text-slate-900 dark:hover:text-[#EEF1FF] transition-colors ${l.code === locale ? 'font-bold text-[#8487e8] dark:text-[#B1B2FF] underline' : ''}`}
+          >
+            {l.name}
+          </a>
+        ))}
+      </div>
+
+      <div class="flex items-center gap-4">
+        <span>© {new Date().getFullYear()} SilenceRemover. {t.footer.rights}</span>
+      </div>
+    </div>
+  </div>
+</footer>

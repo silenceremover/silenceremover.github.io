@@ -1,0 +1,19 @@
+---
+import MainPage from '../../components/MainPage.astro';
+import type { Locale } from '../../i18n/translations';
+
+export function getStaticPaths() {
+  return [
+    { params: { locale: 'es' } },
+    { params: { locale: 'pt' } },
+    { params: { locale: 'de' } },
+    { params: { locale: 'fr' } },
+    { params: { locale: 'ja' } },
+    { params: { locale: 'en' } },
+  ];
+}
+
+const { locale } = Astro.params;
+---
+
+<MainPage locale={locale as Locale} />

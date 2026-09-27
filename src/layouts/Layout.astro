@@ -1,0 +1,82 @@
+---
+import '../styles/global.css';
+import type { Locale } from '../i18n/translations';
+import { translations } from '../i18n/translations';
+import SEO from '../components/SEO.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  locale?: Locale;
+  titleOverride?: string;
+  descriptionOverride?: string;
+  canonicalUrlOverride?: string;
+  ogType?: string;
+}
+
+const { 
+  locale = 'en',
+  titleOverride,
+  descriptionOverride,
+  canonicalUrlOverride,
+  ogType
+} = Astro.props;
+const t = translations[locale] || translations.en;
+---
+
+<!doctype html>
+<html lang={locale} class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Google tag (gtag.js) -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-DY4E3L346X"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-DY4E3L346X');
+    </script>
+    
+    <!-- Prevent Theme Flash -->
+    <script is:inline>
+      (function() {
+        try {
+          const savedTheme = localStorage.getItem('sr-theme');
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- Technical SEO Head Component -->
+    <SEO 
+      locale={locale} 
+      t={t} 
+      titleOverride={titleOverride} 
+      descriptionOverride={descriptionOverride} 
+      canonicalUrlOverride={canonicalUrlOverride} 
+      ogType={ogType} 
+    />
+    <slot name="head" />
+  </head>
+  <body class="bg-[#EEF1FF] text-slate-800 dark:bg-[#0F172A] dark:text-[#EEF1FF] min-h-screen flex flex-col antialiased selection:bg-[#B1B2FF] selection:text-slate-900 transition-colors duration-200">
+    <!-- Sticky Minimal Navbar -->
+    <Navbar locale={locale} t={t} />
+
+    <!-- Main Content -->
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <!-- Comprehensive Footer -->
+    <Footer locale={locale} t={t} />
+  </body>
+</html>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://silenceremover.github.io/sitemap-index.xml
